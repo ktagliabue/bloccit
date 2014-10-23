@@ -1,26 +1,9 @@
 Rails.application.routes.draw do
-  get 'topics/index'
-
-  get 'topics/new'
-
-  get 'topics/show'
-
-  get 'topics/edit'
-
   devise_for :users
-    resources :users, only: [:update]
-    
-  get 'posts/index'
-
-  get 'posts/show'
-
-  get 'posts/new'
-
-  get 'posts/edit'
-
+  
   resources :topics do
-     resources :posts, except: [:index]
-   end
+    resources :posts, except: [:index]
+  end
 
   get 'welcome/about'
 
