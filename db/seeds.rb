@@ -12,16 +12,6 @@ require 'faker'
 end
 users = User.all
 
-#create topics
- 15.times do
-   Topic.create!(
-     name:         Faker::Lorem.sentence,
-     description:  Faker::Lorem.paragraph
-   )
- end
- topics = Topic.all
-
-
 # Create Posts
 50.times do
   Post.create!(
@@ -41,6 +31,15 @@ posts = Post.all
     body: Faker::Lorem.paragraph
   )
 end
+
+#create topics
+ 15.times do
+   Topic.create!(
+     name:         Faker::Lorem.sentence,
+     description:  Faker::Lorem.paragraph
+   )
+ end
+ topics = Topic.all
 
 admin = User.new(
    name:     'Admin User2',

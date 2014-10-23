@@ -1,8 +1,9 @@
 class CreatePosts < ActiveRecord::Migration
   def change
-    create_table :posts do |t|
-      t.string :title
-      t.text :body
+			create_table :topics do |t|
+      t.string :name
+      t.boolean :public, default: true
+      t.text :description
 
       t.timestamps
     end
