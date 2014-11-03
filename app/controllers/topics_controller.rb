@@ -37,8 +37,7 @@ class TopicsController < ApplicationController
 
      authorize @topic
      if @topic.update_attributes(params.require(:topic).permit(:name, :description, :public))
-       flash[:notice] = "\"#{name}\" was deleted successfully."
-       redirect_to topics_path
+       redirect_to @topic, notice: "Topic was saved successfully."
      else
        flash[:error] = "Error saving topic. Please try again"
        render :show

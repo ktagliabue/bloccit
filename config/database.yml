@@ -11,11 +11,12 @@ development:
   pool: 5
   timeout: 5000
 
-#test:
-#  adapter: postgresql
-#  database: my_database_test
-#  pool: 5
-#  timeout: 5000
+test:
+  adapter: postgresql
+  database: bloccit_test
+  username: bloccit
+  pool: 5
+  timeout: 5000
 #
 #production:
 #  adapter: postgresql
