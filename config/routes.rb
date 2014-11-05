@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :topics do
     resources :posts, except: [:index] do
+      post 'upvote' => 'votes#upvote'
+      post 'downvote' => 'votes#downvote'
       resources :comments, only: [:create, :destroy]
     end
   end

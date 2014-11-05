@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102195440) do
+ActiveRecord::Schema.define(version: 20141105222422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,8 +34,10 @@ ActiveRecord::Schema.define(version: 20141102195440) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "topic_id"
+    t.integer  "rank"
   end
 
+  add_index "posts", ["rank"], name: "index_posts_on_rank", using: :btree
   add_index "posts", ["topic_id"], name: "index_posts_on_topic_id", using: :btree
   add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 

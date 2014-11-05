@@ -3,11 +3,11 @@
  describe Post do
    describe "vote methods" do
  
-     # before do
-     #   @post = Post.create(title: 'post title', body: 'post body')
-     #   3.times { @post.votes.create(value: 1) }
-     #   2.times { @post.votes.create(value: -1) }
-     # end
+     before do
+       @post = Post.create!(title: 'post title', body: 'post bodyasaaaaaaaaaaaaaaaaaaaaa')
+       3.times { @post.votes.create(value: 1) }
+       2.times { @post.votes.create(value: -1) }
+     end
  
      describe '#up_votes' do
        it "counts the number of votes with value = 1" do

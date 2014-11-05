@@ -4,30 +4,37 @@ class Post < ActiveRecord::Base
   has_many :votes, dependent: :destroy
 	belongs_to :user
 	belongs_to :topic
+  after_create :update_rank
 
 	default_scope { order('rank DESC') }
 
 	validates :title, length: { minimum: 5 }, presence: true
 	validates :body, length: { minimum: 20 }, presence: true
-  #validates :topic, presence: true
-  #validates :user, presence: true
+  validates :topic, presence: true
+  validates :user, presence: true
 
   def up_votes
     votes.where(value: 1).count
-   end
+  end
 
-   def down_votes
+  def down_votes
     votes.where(value: -1).count
-   end
+  end
 
-   def points
-    self.down_votes + self.up_votes
-   end
+  def points
+    # self.up_votes - self.down_votes
+    self.votes.sum(:value)
+  end
 
-   def update_rank
-     age = (created_at - Time.new(1970,1,1)) / (60 * 60 * 24) # 1 day in seconds
-     new_rank = points + age
+  def update_rank
+    age = (created_at - Time.new(1970,1,1)) / (60 * 60 * 24) # 1 day in seconds
+    new_rank = points + age
  
-     update_attribute(:rank, new_rank)
-   end
+    update_attributes(rank: new_rank)
+  end
+
+  def save_with_upvote_for(user)
+    vote = self.votes.new(user: user, value: 1)
+    self.save && vote.save
+  end
 end
