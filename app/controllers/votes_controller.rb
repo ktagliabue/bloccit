@@ -3,14 +3,14 @@ class VotesController < ApplicationController
   before_action :load_vote
 
   def upvote
-    authorize @vote
+   # authorize @vote
     @vote.value = 1
     @vote.save
     redirect_to topic_post_path(@topic, @post)
   end
 
   def downvote
-    authorize @vote
+   # authorize @vote
     @vote.value = -1
     @vote.save
     redirect_to topic_post_path(@topic, @post)
