@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
   belongs_to :topic
   after_create :update_rank
 
-  default_scope {  ('rank DESC') }
+  default_scope { order('rank DESC') }
 
   validates :title, length: { minimum: 5 }, presence: true
   validates :body, length: { minimum: 20 }, presence: true
@@ -35,5 +35,9 @@ class Post < ActiveRecord::Base
   def save_with_upvote_for(user)
     vote = self.votes.new(user: user, value: 1)
     self.save && vote.save
+  end
+
+  def create_vote
+    user.votes.create(value: 1, post: self)
   end
 end
