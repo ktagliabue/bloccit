@@ -1,6 +1,6 @@
 class FavoritesController < ApplicationController
   def create
-    @authorize
+    @authorize favorite
     @topic = Topic.find(params[:topic_id]) 
     @post = Post.find(params[:post_id])
     @favorite = current_user.favorites.build(post: @post)
@@ -14,7 +14,7 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
-    @authorize
+    @authorize favorite
     @topic = Topic.find(params[:topic_id]) 
     @post = Post.find(params[:post_id])
     @favorite = current_user.favorites(params[:post_id]).first

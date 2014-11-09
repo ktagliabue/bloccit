@@ -1,12 +1,12 @@
 class TopicsController < ApplicationController
   def index
-     @topics = Topic.paginate(page: params[:page], per_page: 10)
+     @topics = Topic.visible_to(current_user).paginate(page: params[:page], per_page: 10)
      authorize @topics
   end
 
   def new
      @topic = Topic.new
-     authorize @topic
+     authorize @topics
   end
 
   def show
@@ -17,13 +17,13 @@ class TopicsController < ApplicationController
 
   def edit
      @topic = Topic.find(params[:id])
-     authorize @topic
+     authorize @topics
   end
  
    def create
      @topic = Topic.new(params.require(:topic).permit(:name, :description, :public))
-     
-     authorize @topic
+     authorize @topics
+
      if @topic.save
        redirect_to @topic, notice: "Topic was saved successfully."
      else
@@ -34,8 +34,8 @@ class TopicsController < ApplicationController
  
    def update
      @topic = Topic.find(params[:id])
+     authorize @topics
 
-     authorize @topic
      if @topic.update_attributes(params.require(:topic).permit(:name, :description, :public))
        redirect_to @topic, notice: "Topic was saved successfully."
      else
@@ -48,7 +48,7 @@ class TopicsController < ApplicationController
     @topic = Topic.find(params[:id])
     name = @topic.name
 
-    authorize @topic
+    authorize @topics
     if @topic.destroy
        flash[:notice] = "\"#{name}\" was deleted successfully."
        redirect_to topics_path
