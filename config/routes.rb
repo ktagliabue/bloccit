@@ -1,16 +1,18 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :users, only: [:show, :update] do
+  resources :users, only: [:update, :show, :index] do
     #   post 'show' => 'users#show'
     # end
   end
 
   resources :topics do
-    resources :posts, except: [:index] do
+    resources :posts, except: [:index], controller: 'topics/posts' do
       post 'upvote' => 'votes#upvote'
       post 'downvote' => 'votes#downvote'
+      resources :posts, only: [:index] do
       resources :comments, only: [:create, :destroy]
       resources :favorites, only: [:create, :destroy]
+      end
     end
   end
 
