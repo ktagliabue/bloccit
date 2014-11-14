@@ -1,7 +1,8 @@
  <div class="media">
   <div class="media-body">
     <h4 class="media-heading">
-      <%= link_to @topic %>
+      
+      <%= link_to post.title, topic_post_path(post.topic, post) %>
       <small>
 
        <%= image_tag(post.user.avatar.tiny.url) if post.user.avatar? %>
