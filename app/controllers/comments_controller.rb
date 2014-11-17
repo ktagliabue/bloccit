@@ -4,10 +4,14 @@ class CommentsController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
     @comment = Comment.new(params.require(:comment).permit(:body))
+    @new_comment = Comment.new
     @comment.post = @post
     @comment.user = current_user
     @comment.save
-    redirect_to topic_post_path(@post.topic.id, @post.id)
+
+    respond_with(@comment) do |format|
+      format.html { redirect_to [@post.topic, @post] }
+    end
   end
 
   def destroy
